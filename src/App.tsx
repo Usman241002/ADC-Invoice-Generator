@@ -1,47 +1,25 @@
-import { Container, Grid, Stack, Toolbar } from "@mui/material";
+import { Box, Container, Grid, Stack, Toolbar } from "@mui/material";
 import TopNav from "./components/TopNav";
 import Form from "./components/Form";
 import { useState } from "react";
+import Invoice from "./components/Invoice";
 
 export default function App() {
   const initialState: Record<string, string | number | Date> = {};
-  const [formData, setFormData] = useState(initialState);
 
-  const handleChange = (key: string, value: string) => {
-    const newFormData = {
-      ...formData,
-      [key]: value,
-    };
+  // Applied form states (for invoice generation only)
+  const [appliedFormData, setAppliedFormData] = useState({
+    client: initialState,
+    invoice: initialState,
+    vehicle: initialState,
+  });
 
-    // Handle bidirectional calculation between days and hire start date
-    if (key === "No. of Days" && value) {
-      // Calculate hire start date from number of days
-      const days = parseInt(value);
-      if (!isNaN(days)) {
-        const today = new Date();
-        const hireDate = new Date(today);
-        hireDate.setDate(today.getDate() + days);
-
-        // Format date as YYYY-MM-DD for input field
-        const formattedDate = hireDate.toISOString().split("T")[0];
-        newFormData["Hire Start Date"] = formattedDate;
-      }
-    } else if (key === "Hire Start Date" && value) {
-      // Calculate number of days from hire start date
-      try {
-        const hireDate = new Date(value);
-        if (!isNaN(hireDate.getTime())) {
-          const today = new Date();
-          const diffMs = hireDate.getTime() - today.getTime();
-          const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-          newFormData["No. of Days"] = days.toString();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    setFormData(newFormData);
+  const handleGenerateInvoice = (formData: {
+    client: Record<string, string | number | Date>;
+    invoice: Record<string, string | number | Date>;
+    vehicle: Record<string, string | number | Date>;
+  }) => {
+    setAppliedFormData(formData);
   };
 
   return (
@@ -58,12 +36,13 @@ export default function App() {
         <Toolbar />
         <Grid container spacing={4} sx={{ height: "calc(100vh - 5rem)" }}>
           <Grid size={6} sx={{ border: "1px solid black", height: "100%" }}>
-            <Form handleChange={handleChange} formData={formData} />
+            <Form onGenerate={handleGenerateInvoice} />
           </Grid>
-          <Grid
-            size={6}
-            sx={{ border: "1px solid black", height: "100%" }}
-          ></Grid>
+          <Grid size={6} sx={{ border: "1px solid black", height: "100%" }}>
+            <Box id="invoice-container">
+              <Invoice formData={appliedFormData} />
+            </Box>
+          </Grid>
         </Grid>
       </Stack>
     </Container>
