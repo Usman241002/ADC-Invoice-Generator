@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: "#000000",
     marginTop: 5,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   // Styles for the tables
   table: {
@@ -272,41 +272,25 @@ export default function Invoice({
           </View>
 
           {/* Date & Time Table */}
+
           <View style={styles.table}>
             <View style={styles.tableRow}>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>Date & Time Out</Text>
-              </View>
               <View style={styles.tableColHeader}>
                 <Text style={styles.tableCell}>AM / PM</Text>
               </View>
               <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>13/08/2025</Text>
+                <Text style={styles.tableCell}>13</Text>
               </View>
               <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>10/11/2025</Text>
+                <Text style={styles.tableCell}>08</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableCell}>25</Text>
               </View>
             </View>
             <View style={styles.tableRow}>
               <View style={styles.tableColHeader}>
                 <Text style={styles.tableCell}>Time</Text>
-              </View>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>Day</Text>
-              </View>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>Month</Text>
-              </View>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>Year</Text>
-              </View>
-            </View>
-            <View style={styles.tableRow}>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>Date & Time In</Text>
-              </View>
-              <View style={styles.tableColHeader}>
-                <Text style={styles.tableCell}>AM / PM</Text>
               </View>
               <View style={styles.tableColHeader}>
                 <Text style={styles.tableCell}>Day</Text>
