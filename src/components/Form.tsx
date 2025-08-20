@@ -110,7 +110,12 @@ export default function Form({ onGenerate }: FormProps) {
         { label: "City", size: 6, type: "text" },
         { label: "Postcode", size: 6, type: "text" },
         { label: "Driving License Number", size: 6, type: "text" },
-        { label: "Licensing Agency", size: 6, type: "text" },
+        {
+          label: "Licensing Agency",
+          size: 6,
+          type: "text",
+          defaultValue: "DVLA",
+        },
         { label: "Date of Birth", size: 6, type: "date" },
         { label: "Expiry Date", size: 6, type: "date" },
       ],
