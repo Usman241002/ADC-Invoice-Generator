@@ -22,19 +22,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5,
   },
-  header: {
-    fontSize: 24,
-    textAlign: "center",
-    marginBottom: 20,
-    fontWeight: "bold",
-  },
   subHeader: {
     fontSize: 16,
     marginBottom: 10,
     fontWeight: "bold",
   },
   text: {
-    fontSize: 10,
+    fontSize: 8,
     marginBottom: 2,
     lineHeight: 1.2,
   },
@@ -133,116 +127,144 @@ export default function Invoice({
     vehicle: Record<string, string | number | Date>;
   };
 }) {
-  const { client } = formData;
+  const { client, vehicle, invoice } = formData;
+
   return (
     <PDFViewer width="100%" height="100%">
       <Document>
         {/* Page 1 */}
         <Page size="A4" style={styles.page}>
-          {/* ADC Logo (Placeholder) */}
-
           <View
             style={{
               flexDirection: "row",
               borderBottomWidth: 1,
               borderBottomColor: "#000",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
               alignItems: "center",
             }}
           >
-            <Text style={styles.header}>ACCIDENT DIRECT CLAIMS</Text>
+            <Text
+              style={{ fontSize: 28, textAlign: "center", fontWeight: "bold" }}
+            >
+              ACCIDENT DIRECT CLAIMS
+            </Text>
             <Image src={logo} style={{ width: "120px", height: "85px" }} />
           </View>
 
-          <View style={styles.section}>
-            {/* Row 1 */}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              margin: 10,
+            }}
+          >
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "#000",
+                flexDirection: "column",
+                fontWeight: "bold",
               }}
             >
-              <Text>
-                <Text>FULL NAME</Text>
-                <Text>MR TEDRUS GEBREMESKEL</Text>
-              </Text>
-
-              <Text>
-                <Text>DATE OF BIRTH</Text>
-                <Text>16/01/1985</Text>
-              </Text>
-            </View>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "#000",
-              }}
-            >
-              <Text>ADDRESS</Text>
-              <Text>46 ARMFIELD STREET</Text>
-              <Text>DRIVING LICENCE NO</Text>
-              <Text>GEBRE801165T99FA</Text>
-            </View>
-            {/* Row 3 */}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "#000",
-              }}
-            >
-              <Text></Text>
-              <Text>COVENTRY</Text>
-              <Text>LICENSING ISSUING AUTHORITY</Text>
-              <Text>DVLA UK</Text>
-            </View>
-            {/* Row 4 */}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "#000",
-              }}
-            >
+              <Text style={{}}>FULL NAME</Text>
+              <Text style={{}}>ADDRESS</Text>
+              <Text style={{}}>{"   "}</Text>
               <Text>POSTCODE</Text>
-              <Text>CV6 7GE</Text>
+            </View>
+            <View style={{ flexDirection: "column" }}>
+              <Text style={{}}>{client["Name"]}</Text>
+              <Text style={{}}>{client["Address"]}</Text>
+              <Text style={{}}>{client["City"]}</Text>
+              <Text>{client["Postcode"]}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "column",
+                fontWeight: "bold",
+              }}
+            >
+              <Text style={{}}>DATE OF BIRTH</Text>
+              <Text style={{}}>DRIVING LICENCE NO</Text>
+              <Text style={{}}>LICENSING ISSUING AUTHORITY</Text>
               <Text>DATE OF EXPIRY</Text>
-              <Text>17/10/2032</Text>
+            </View>
+            <View style={{ flexDirection: "column" }}>
+              <Text style={{}}>{client["Date of Birth"]}</Text>
+              <Text style={{}}>{client["Driving License Number"]}</Text>
+              <Text style={{}}>{client["Expiry Date"]}</Text>
+              <Text>{client["Licensing Agency"]}</Text>
             </View>
           </View>
 
-          <View style={styles.section}>
-            <Text style={styles.text}>
-              (a) Have you any physical defect or infirmity?{" ".repeat(70)}
-              YES/NO
-            </Text>
-            <Text style={styles.text}>
-              (b) Have you been convicted or have a prosecution pending for any
-              motoring offence or has your licence been suspended or endorsed?
-              {" ".repeat(1)}YES/NO
-            </Text>
-            <Text style={styles.text}>
-              (c) Have you been refused, declined motor insurance or increased
-              premium or terms imposed?{" ".repeat(20)}YES/NO
-            </Text>
-            <Text style={styles.text}>
-              If answer is yes to any above please give details
-            </Text>
-            <BlankLine />
-          </View>
+          <BlankLine />
 
-          <View style={styles.section}>
-            <Text style={styles.subHeader}>
-              Purpose for which vehicle will be used
-            </Text>
-            <BlankLine />
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "space-between",
+              margin: 5,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={styles.text}>
+                (a) Have you any physical defect or infirmity?
+              </Text>
+              <Text style={styles.text}>YES/NO</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={styles.text}>
+                (b) Have you been convicted or have a prosecution pending for
+                any motoring offence or has your licence been suspended or
+                endorsed?
+              </Text>
+              <Text style={styles.text}>YES/NO</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={styles.text}>
+                (c) Have you been refused, declined motor insurance or increased
+                premium or terms imposed?
+              </Text>
+              <Text style={styles.text}>YES/NO</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "start",
+                alignItems: "flex-end",
+                marginTop: 8,
+              }}
+            >
+              <Text style={styles.text}>
+                If answer is yes to any above please give details:
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "start",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text style={styles.text}>
+                Purpose for which vehicle will be used:
+              </Text>
+            </View>
           </View>
 
           <View style={styles.section}>
@@ -259,16 +281,23 @@ export default function Invoice({
             </Text>
           </View>
 
+          <BlankLine />
+
           <Text style={styles.subHeader}>Vehicle Details</Text>
-          <View style={styles.section}>
-            <Text style={styles.text}>
-              <Text style={styles.boldText}>Make</Text>
-              {" ".repeat(15)}TOYOTA{" ".repeat(20)}
-              <Text style={styles.boldText}>Model</Text>
-              {" ".repeat(15)}PRIUS{" ".repeat(20)}
-              <Text style={styles.boldText}>Registration</Text>
-              {" ".repeat(10)}FX16JOA
-            </Text>
+          <View
+            style={{
+              marginBottom: 10,
+              padding: 5,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ fontWeight: "bold" }}>Make</Text>
+            <Text>{vehicle["Make"]}</Text>
+            <Text style={{ fontWeight: "bold" }}>Model</Text>
+            <Text>{vehicle["Model"]}</Text>
+            <Text style={{ fontWeight: "bold" }}>Registration</Text>
+            <Text>{vehicle["VRM"]}</Text>
           </View>
 
           {/* Date & Time Table */}
